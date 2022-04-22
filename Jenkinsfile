@@ -9,15 +9,15 @@ pipeline {
     stage('docker build and push') {
       steps {
         sh '''
-        sudo docker build -t dltoa6746/testshop:index .
-        sudo docker push dltoa6746/testshop:index
+        sudo docker build -t dltoa6746/testshop:jenkins .
+        sudo docker push dltoa6746/testshop:jenkins
         '''
       }
     }
     stage('deploy k8s') {
       steps {
         sh '''
-        sudo kubectl create deploy testpipeline --image=dltoa6746/testshop:index
+        sudo kubectl create deploy testpipeline --image=dltoa6746/testshop:jenkins
         sudo kubectl expose deploy testpipeline --type=NodePort --port=8081 \
         --target-port=80 --name=testpipeline-svc
         '''
