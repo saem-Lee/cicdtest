@@ -24,12 +24,12 @@ pipeline {
     }
   }
   stages {
-    stage('git scm update') {
+    stage('git scm update3') {
       steps {
         git url: 'https://github.com/saem-Lee/cicdtest.git', branch: 'master'
       }
     }
-    stage('docker build and push') {
+    stage('docker build and push3') {
       steps {
         sh '''
         sudo docker build -t dltoa6746/testshop:newblog .
@@ -37,7 +37,7 @@ pipeline {
         '''
       }
     }
-    stage('deploy k8s') {
+    stage('deploy k8s3') {
       steps {
         sh '''
         sudo kauth
@@ -47,12 +47,12 @@ pipeline {
     }
   }
   stages {
-    stage('git scm update') {
+    stage('git scm update2') {
       steps {
         git url: 'https://github.com/saem-Lee/cicdtest.git', branch: 'master'
       }
     }
-    stage('docker build and push') {
+    stage('docker build and push2') {
       steps {
         sh '''
         sudo docker build -t dltoa6746/testshop:newshop .
@@ -60,7 +60,7 @@ pipeline {
         '''
       }
     }
-    stage('deploy k8s') {
+    stage('deploy k8s2') {
       steps {
         sh '''
         sudo kauth
