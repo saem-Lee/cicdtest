@@ -4,6 +4,9 @@ metadata:
   name: deploy-main
 spec:
   replicas: 3
+  selector: 
+  matchLabels:
+    page: jenkins
   template:             #<-- 여기서부터는 포드에 대한 내용
     metadata:
       name: pod-jenkins
@@ -21,9 +24,13 @@ kind: Service
 metadata:
   name: svc-jenkinsnginx
 spec:
+  ports: 
+  - name: jk-port
+    targetPort: 80
+    port: 80
   selector:
     page: jenkins
-  ports:
-  - port: 80
   type: LoadBalancer
+
+
 
