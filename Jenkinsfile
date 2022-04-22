@@ -10,65 +10,18 @@ pipeline {
       steps {
         sh '''
         sudo docker build -t dltoa6746/testshop:newnewmain .
-        sudo docker push brian24/testshop:newnewmain
+        sudo docker push dltoa6746/testshop:newnewmain
         '''
       }
     }
     stage('deploy k8s') {
       steps {
         sh '''
-        sudo kauth
-	sudo kubectl set image deployment deploy-main ctn-main=dltoa6746/testshop:newnewmain
+        sudo kubectl create deploy testpipeline --image=dltoa6746/testshop:newnewmain
+        sudo kubectl expose deploy testpipeline --type=NodePort --port=8081 \
+        --target-port=80 --name=testpipeline-svc
         '''
       }
     }
   }
-  stages {
-    stage('git scm update3') {
-      steps {
-        git url: 'https://github.com/saem-Lee/cicdtest.git', branch: 'master'
-      }
-    }
-    stage('docker build and push3') {
-      steps {
-        sh '''
-        sudo docker build -t dltoa6746/testshop:newblog .
-        sudo docker push brian24/testshop:newblog
-        '''
-      }
-    }
-    stage('deploy k8s3') {
-      steps {
-        sh '''
-        sudo kauth
-        sudo kubectl set image deployment deploy-main ctn-main=dltoa6746/testshop:newblog
-        '''
-      }
-    }
-  }
-  stages {
-    stage('git scm update2') {
-      steps {
-        git url: 'https://github.com/saem-Lee/cicdtest.git', branch: 'master'
-      }
-    }
-    stage('docker build and push2') {
-      steps {
-        sh '''
-        sudo docker build -t dltoa6746/testshop:newshop .
-        sudo docker push brian24/testshop:newshop
-        '''
-      }
-    }
-    stage('deploy k8s2') {
-      steps {
-        sh '''
-        sudo kauth
-        sudo kubectl set image deployment deploy-shop ctn-shop=dltoa6746/testshop:newshop
-        '''
-      }
-    }
-  }
-
 }
-
