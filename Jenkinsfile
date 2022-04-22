@@ -9,8 +9,8 @@ pipeline {
     stage('docker build and push') {
       steps {
         sh '''
-        sudo docker build -t dltoa6746/testshop:newmain2 .
-        sudo docker push brian24/testshop:newmain2
+        sudo docker build -t dltoa6746/testshop:newnewmain .
+        sudo docker push brian24/testshop:newnewmain
         '''
       }
     }
@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh '''
         sudo kauth
-	sudo kubectl set image deployment deploy-main ctn-main=dltoa6746/testshop:newmain2
+	sudo kubectl set image deployment deploy-main ctn-main=dltoa6746/testshop:newnewmain
         '''
       }
     }
